@@ -1,0 +1,3 @@
+- git:
+    local-name: PCA9685
+    uri: https://github.com/mincrmatt12/PCA9685.git
