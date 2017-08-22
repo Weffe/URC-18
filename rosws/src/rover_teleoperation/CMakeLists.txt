@@ -4,14 +4,8 @@ project(rover_teleoperation)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-        moveit_core
-        moveit_ros_planning
-        moveit_ros_planning_interface
-        pluginlib
-        roscpp)
+find_package(catkin REQUIRED COMPONENTS)
 
-add_compile_options("-std=c++11")
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -105,8 +99,7 @@ add_compile_options("-std=c++11")
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES rover_teleoperation
-  CATKIN_DEPENDS moveit_core
-        moveit_ros_planning_interface
+  #CATKIN_DEPENDS
 #  DEPENDS system_lib
 )
 
