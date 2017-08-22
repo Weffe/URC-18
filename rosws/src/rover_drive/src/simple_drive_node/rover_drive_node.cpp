@@ -45,14 +45,14 @@ int servoPWM(int pulse) {
 }
 
 void leftCallback(const std_msgs::Float32ConstPtr &msg) {
-    int motorValue = servoPWM(static_cast<int>((std::min(std::max(0f, msg->data), 1) * MOTOR_OFFSET) + MOTOR_MID));
+    int motorValue = servoPWM(static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * MOTOR_OFFSET) + MOTOR_MID));
     for (uint8_t channel : LEFT_WHEELS) {
         drivePCA->setPWM(channel, 0, motorValue);
     }
 }
 
 void rightCallback(const std_msgs::Float32ConstPtr &msg) {
-    int motorValue = servoPWM(static_cast<int>((std::min(std::max(0f, msg->data), 1) * MOTOR_OFFSET) + MOTOR_MID));
+    int motorValue = servoPWM(static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * MOTOR_OFFSET) + MOTOR_MID));
     for (uint8_t channel : RIGHT_WHEELS) {
         drivePCA->setPWM(channel, 0, motorValue);
     }
