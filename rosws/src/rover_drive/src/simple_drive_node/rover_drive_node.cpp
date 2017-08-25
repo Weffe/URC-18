@@ -2,15 +2,15 @@
 // Created by matthew on 21/08/17.
 //
 
-#include <PCA9685/PCA9685.h>
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include "constants.h"
-
-PCA9685 *drivePCA;
+#include "ard_device.h"
 
 void leftCallback(const std_msgs::Float32ConstPtr &msg);
 void rightCallback(const std_msgs::Float32ConstPtr &msg);
+
+rover_drive::ARDevice *dev;
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "rover_drive_node");
@@ -21,39 +21,37 @@ int main(int argc, char **argv) {
     nh_.param("~pcaAddress", address, 0x40);
     nh_.param("~pcaBus", bus, 0);
     ROS_INFO_STREAM("Opening PCA9685 on bus " << bus << " address 0x" << std::hex << address);
-
-    drivePCA = new PCA9685(address, static_cast<uint8_t>(bus));
     try {
-        drivePCA->init();
+        dev = new rover_drive::ARDevice(static_cast<uint8_t>(bus), static_cast<uint8_t>(address));
     }
     catch (std::runtime_error error) {
-        ROS_FATAL_STREAM("Failed to open PCA9685: " << error.what());
+        ROS_FATAL_STREAM("Failed to open arduino: " << error.what());
         exit(1);
     }
 
     nh_.subscribe("/drive/left", 100, leftCallback);
     nh_.subscribe("/drive/right", 100, rightCallback);
+    for (uint8_t pin : rover_drive::LEFT_WHEELS) {
+        dev->openPin(pin);
+    }
+    for (uint8_t pin : rover_drive::RIGHT_WHEELS) {
+        dev->openPin(pin);
+    }
     ROS_INFO_STREAM("Opened PCA9685 successfully!");
-    ros::spin();
-}
+    ros::waitForShutdown();
 
-int servoPWM(int pulse) {
-    int pulse_length = 1000000 / 500 / 4096;
-    int pulse2 = pulse * 1000;
-    pulse2 /= pulse_length;
-    return pulse2;
 }
 
 void leftCallback(const std_msgs::Float32ConstPtr &msg) {
-    int motorValue = servoPWM(static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * MOTOR_OFFSET) + MOTOR_MID));
-    for (uint8_t channel : LEFT_WHEELS) {
-        drivePCA->setPWM(channel, 0, motorValue);
+    int motorValue = static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
+    for (uint8_t channel : rover_drive::LEFT_WHEELS) {
+        dev->writeMicroseconds(channel, motorValue);
     }
 }
 
 void rightCallback(const std_msgs::Float32ConstPtr &msg) {
-    int motorValue = servoPWM(static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * MOTOR_OFFSET) + MOTOR_MID));
-    for (uint8_t channel : RIGHT_WHEELS) {
-        drivePCA->setPWM(channel, 0, motorValue);
+    int motorValue = static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
+    for (uint8_t channel : rover_drive::RIGHT_WHEELS) {
+        dev->writeMicroseconds(channel, motorValue);
     }
 }

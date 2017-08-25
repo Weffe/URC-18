@@ -98,7 +98,7 @@ find_package(catkin REQUIRED COMPONENTS simpli2c roscpp std_msgs)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES rover_drive
-   CATKIN_DEPENDS PCA9685
+   CATKIN_DEPENDS simpli2c
 #  DEPENDS system_lib
 )
 
@@ -123,7 +123,7 @@ set(CMAKE_CXX_STANDARD 14)
 #add_dependencies(rover_drive ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(rover_drive_node src/simple_drive_node/rover_drive_node.cpp)
+add_executable(rover_drive_node src/simple_drive_node/rover_drive_node.cpp src/simple_drive_node/ard_device.cpp src/simple_drive_node/ard_device.h)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -132,7 +132,7 @@ add_dependencies(rover_drive_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_E
 ## Specify libraries to link a library or executable target against
 target_link_libraries(rover_drive_node
    ${catkin_LIBRARIES}
-        )
+)
 
 #############
 ## Install ##
