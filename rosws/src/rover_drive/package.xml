@@ -40,10 +40,10 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>PCA9685</build_depend>
+  <build_depend>simpli2c</build_depend>
     <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
-    <run_depend>PCA9685</run_depend>
+    <run_depend>simpli2c</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

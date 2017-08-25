@@ -1,5 +1,5 @@
 # place all packages from wstool here
-PCA9685/
+simpli2c
 
 # e.g.
 # robot_localization/
