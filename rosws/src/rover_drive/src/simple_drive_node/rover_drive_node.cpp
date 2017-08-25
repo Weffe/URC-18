@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
 
     ROS_INFO_STREAM("Starting rover_drive_node...");
     int address, bus;
-    nh_.param("~pcaAddress", address, 0x40);
-    nh_.param("~pcaBus", bus, 0);
+    nh_.param("pcaAddress", address, 0x40);
+    nh_.param("pcaBus", bus, 0);
     ROS_INFO_STREAM("Opening PCA9685 on bus " << bus << " address 0x" << std::hex << address);
     try {
         dev = new rover_drive::ARDevice(static_cast<uint8_t>(bus), static_cast<uint8_t>(address));
