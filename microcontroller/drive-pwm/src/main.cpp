@@ -10,7 +10,7 @@ Servo** servos;
 uint8_t servoCount = 0;
 uint8_t lastName = 0;
 
-const int ADDRESS = 0x40;
+const int ADDRESS = 0x30;
 
 uint8_t addServo(uint8_t pin) {
     if (servoCount != 0) {
@@ -32,11 +32,15 @@ void setServo(uint8_t name, uint16_t micros) {
 }
 
 void onRecieve(int bytes) {
+    Serial.println("I getting data");
     int func = Wire.read();
+    Serial.println(func);
     if (bytes == 2 && func == 0x01) {
+        Serial.println("Adding pin");
         lastName = addServo(static_cast<uint8_t>(Wire.read()));
     }
     else if (bytes == 4 && func == 0x02) {
+        Serial.println("Setting pin");
         uint8_t servo = static_cast<uint8_t>(Wire.read());
         uint8_t buf[2];
         Wire.readBytes(buf, 2);
@@ -52,15 +56,20 @@ void onRecieve(int bytes) {
 }
 
 void onRequest() {
+    Serial.println("i need to send data");
     Wire.write(lastName);
 }
 
 void setup() {
+    Serial.begin(9600); //debugging
+    Serial.println("OK");
     Wire.begin(ADDRESS);
     Wire.onRequest(onRequest);
     Wire.onReceive(onRecieve);
+    Serial.println("I am running");
 }
 
 void loop() {
-    delay(50); // yaaaay
+    delay(100); // yaaaay
+    Serial.println("I am loop");
 }

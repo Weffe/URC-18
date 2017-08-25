@@ -18,9 +18,9 @@ int main(int argc, char **argv) {
 
     ROS_INFO_STREAM("Starting rover_drive_node...");
     int address, bus;
-    nh_.param("pcaAddress", address, 0x40);
-    nh_.param("pcaBus", bus, 0);
-    ROS_INFO_STREAM("Opening PCA9685 on bus " << bus << " address 0x" << std::hex << address);
+    nh_.param("address", address, 0x40);
+    nh_.param("bus", bus, 0);
+    ROS_INFO_STREAM("Opening arduino on bus " << bus << " address 0x" << std::hex << address);
     try {
         dev = new rover_drive::ARDevice(static_cast<uint8_t>(bus), static_cast<uint8_t>(address));
     }
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
     for (uint8_t pin : rover_drive::RIGHT_WHEELS) {
         dev->openPin(pin);
     }
-    ROS_INFO_STREAM("Opened PCA9685 successfully!");
+    ROS_INFO_STREAM("Opened arduino successfully!");
     ros::waitForShutdown();
 
 }
