@@ -14,12 +14,12 @@ rover_drive::ARDevice *dev;
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "rover_drive_node");
-    ros::NodeHandle nh_;
+    ros::NodeHandle nh_("~");
 
     ROS_INFO_STREAM("Starting rover_drive_node...");
     int address, bus;
-    nh_.param("address", address, 0x40);
-    nh_.param("bus", bus, 0);
+    nh_.param("address", address, 0x31);
+    nh_.param("bus", bus, 1);
     ROS_INFO_STREAM("Opening arduino on bus " << bus << " address 0x" << std::hex << address);
     try {
         dev = new rover_drive::ARDevice(static_cast<uint8_t>(bus), static_cast<uint8_t>(address));
