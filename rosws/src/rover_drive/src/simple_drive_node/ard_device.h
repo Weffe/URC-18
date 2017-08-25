@@ -6,6 +6,7 @@
 #define PROJECT_ARD_DEVICE_H
 
 #include <simpli2c/simpli2c.h>
+#include <map>
 
 namespace rover_drive {
 
@@ -17,6 +18,7 @@ namespace rover_drive {
         void writeMicroseconds(uint8_t pin, uint16_t microSeconds);
     private:
         simpli2c::Device device;
+        std::map<uint8_t, uint8_t> pinMap;
     };
 
 }
