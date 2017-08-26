@@ -10,15 +10,15 @@
 rover_drive::ARDevice *dev;
 
 void leftCallback(const std_msgs::Float32ConstPtr &msg) {
-    int motorValue = static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
-    ROS_INFO_STREAM("writ");
+    int motorValue = static_cast<int>((std::min(std::max(-1.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
+    ROS_INFO_STREAM("writing " << motorValue);
     for (uint8_t channel : rover_drive::LEFT_WHEELS) {
         dev->writeMicroseconds(channel, static_cast<uint16_t>(motorValue));
     }
 }
 
 void rightCallback(const std_msgs::Float32ConstPtr &msg) {
-    int motorValue = static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
+    int motorValue = static_cast<int>((std::min(std::max(-1.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
     for (uint8_t channel : rover_drive::RIGHT_WHEELS) {
         dev->writeMicroseconds(channel, static_cast<uint16_t>(motorValue));
     }
