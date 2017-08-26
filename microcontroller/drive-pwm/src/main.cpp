@@ -27,7 +27,7 @@ uint8_t addServo(uint8_t pin) {
 
 void resetServos() {
     if (servoCount == 0) return;
-    for (int i = 0; i < servoCount) {
+    for (int i = 0; i < servoCount; i++) {
         servos[i]->detach();
         delete servos[i];
     }
