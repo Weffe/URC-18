@@ -42,9 +42,9 @@ void setServo(uint8_t name, uint16_t micros) {
 }
 
 void onRecieve(int bytes) {
-    //Serial.println("I getting data");
+    Serial.println("I getting data");
     int func = Wire.read();
-    //Serial.println(func);
+    Serial.println(func);
     if (bytes == 2 && func == 0x01) {
         Serial.println("Adding pin");
         lastName = addServo(static_cast<uint8_t>(Wire.read()));
@@ -57,6 +57,7 @@ void onRecieve(int bytes) {
         setServo(servo, reinterpret_cast<uint16_t>(buf));
     }
     else if (bytes == 1 && func == 0x03) {
+        Serial.println("Reset!");
         resetServos();
     }
     else {
@@ -69,12 +70,12 @@ void onRecieve(int bytes) {
 }
 
 void onRequest() {
-    //Serial.println("i need to send data");
+    Serial.println("i need to send data");
     Wire.write(lastName);
 }
 
 void setup() {
-    //Serial.begin(9600); //debugging
+    Serial.begin(9600); //debugging
     Serial.println("OK");
     Wire.begin(ADDRESS);
     Wire.onRequest(onRequest);
@@ -84,5 +85,5 @@ void setup() {
 
 void loop() {
     delay(100); // yaaaay
-    //Serial.println("I am loop");
+    Serial.println("I am loop");
 }
