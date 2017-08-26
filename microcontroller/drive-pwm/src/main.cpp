@@ -25,6 +25,16 @@ uint8_t addServo(uint8_t pin) {
     return servoCount - 1;
 }
 
+void resetServos() {
+    if (servoCount == 0) return;
+    for (int i = 0; i < servoCount) {
+        servos[i]->detach();
+        delete servos[i];
+    }
+    free(servos);
+    servoCount = 0;
+}
+
 void setServo(uint8_t name, uint16_t micros) {
     if (name < servoCount) {
         servos[name]->writeMicroseconds(micros);
@@ -32,9 +42,9 @@ void setServo(uint8_t name, uint16_t micros) {
 }
 
 void onRecieve(int bytes) {
-    Serial.println("I getting data");
+    //Serial.println("I getting data");
     int func = Wire.read();
-    Serial.println(func);
+    //Serial.println(func);
     if (bytes == 2 && func == 0x01) {
         Serial.println("Adding pin");
         lastName = addServo(static_cast<uint8_t>(Wire.read()));
@@ -46,6 +56,9 @@ void onRecieve(int bytes) {
         Wire.readBytes(buf, 2);
         setServo(servo, reinterpret_cast<uint16_t>(buf));
     }
+    else if (bytes == 1 && func == 0x03) {
+        resetServos();
+    }
     else {
         bytes--;
         while (bytes > 0) {
@@ -56,12 +69,12 @@ void onRecieve(int bytes) {
 }
 
 void onRequest() {
-    Serial.println("i need to send data");
+    //Serial.println("i need to send data");
     Wire.write(lastName);
 }
 
 void setup() {
-    Serial.begin(9600); //debugging
+    //Serial.begin(9600); //debugging
     Serial.println("OK");
     Wire.begin(ADDRESS);
     Wire.onRequest(onRequest);
@@ -71,5 +84,5 @@ void setup() {
 
 void loop() {
     delay(100); // yaaaay
-    Serial.println("I am loop");
+    //Serial.println("I am loop");
 }

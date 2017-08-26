@@ -10,9 +10,11 @@ namespace rover_drive {
 
     // open pin: 0x01 0xXX where XX is the pin
     // set pin value 0x02 0xXX 0xYY 0xYY, XX is the pin, YY is an unsigned short being the pwm
+    // reset: 0x03
 
     ARDevice::ARDevice(uint8_t busnum, uint8_t address) : device(busnum, address), pinMap() {
         this->device.open_();
+        this->device.writeOne(0x03); // reset
     }
 
     void ARDevice::openPin(uint8_t pin) {
