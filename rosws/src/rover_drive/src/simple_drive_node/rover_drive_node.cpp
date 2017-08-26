@@ -27,7 +27,7 @@ void rightCallback(const std_msgs::Float32ConstPtr &msg) {
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "rover_drive_node");
-    ros::NodeHandle nh_("~");
+    ros::NodeHandle nh_;
 
     ROS_INFO_STREAM("Starting rover_drive_node...");
     int address, bus;
