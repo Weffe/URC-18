@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
 
     nh_.subscribe("/drive/left", 100, leftCallback);
     nh_.subscribe("/drive/right", 100, rightCallback);
+    ROS_INFO_STREAM("Opening pins on the arduino");
     for (uint8_t pin : rover_drive::LEFT_WHEELS) {
         dev->openPin(pin);
     }
@@ -38,12 +39,14 @@ int main(int argc, char **argv) {
         dev->openPin(pin);
     }
     ROS_INFO_STREAM("Opened arduino successfully!");
-    ros::waitForShutdown();
+    ros::spin();
 
 }
 
 void leftCallback(const std_msgs::Float32ConstPtr &msg) {
+    ROS_INFO_STREAM("cb");
     int motorValue = static_cast<int>((std::min(std::max(0.0f, msg->data), 1.0f) * rover_drive::MOTOR_OFFSET) + rover_drive::MOTOR_MID);
+    ROS_INFO_STREAM("writing " << motorValue);
     for (uint8_t channel : rover_drive::LEFT_WHEELS) {
         dev->writeMicroseconds(channel, motorValue);
     }
