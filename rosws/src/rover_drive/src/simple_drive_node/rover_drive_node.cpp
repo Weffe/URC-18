@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
     ROS_INFO_STREAM("Starting rover_drive_node...");
     int address, bus;
-    nh_.param("address", address, 0x31);
+    nh_.param("address", address, 0x30);
     nh_.param("bus", bus, 1);
     ROS_INFO_STREAM("Opening arduino on bus " << bus << " address 0x" << std::hex << address);
     try {
@@ -29,8 +29,9 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    nh_.subscribe("/drive/left", 100, leftCallback);
-    nh_.subscribe("/drive/right", 100, rightCallback);
+    ros::Subscriber s1 = nh_.subscribe("/drive/left", 100, leftCallback);
+    ros::Subscriber s2 = nh_.subscribe("/drive/right", 100, rightCallback);
+    ROS_INFO_STREAM("Opening pins on the arduino");
     for (uint8_t pin : rover_drive::LEFT_WHEELS) {
         dev->openPin(pin);
     }
