@@ -19,6 +19,7 @@ namespace rover_drive {
     private:
         simpli2c::Device device;
         std::map<uint8_t, uint8_t> pinMap;
+        std::map<uint8_t, uint16_t> lastValues;
     };
 
 }
