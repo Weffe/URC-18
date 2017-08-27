@@ -37,7 +37,7 @@ namespace rover_drive {
         packet[2] = short_[0];
         packet[3] = short_[1];
 #ifdef DEBUG_PRINT_MICROSECONDS
-        ROS_INFO_STREAM("writing " << microSeconds << " to " << pin);
+        ROS_INFO_STREAM("writing " << microSeconds << "");
 #endif
         device.writeMany(packet, 4);
     }
