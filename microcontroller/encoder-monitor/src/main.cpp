@@ -11,7 +11,7 @@ void onRequest(){
   Wire.write(enc.read());
 }
 void onRecieve(int bytes){
-  enc.write(bytes);
+  enc.write(Wire.read());
 }
 void setup(){
   Wire.begin(address);
