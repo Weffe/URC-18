@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>rover_teleoperation</name>
+  <name>rover_ik</name>
   <version>0.0.0</version>
-  <description>The rover_teleoperation package</description>
+  <description>The rover_ik package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/rover_teleoperation</url> -->
+  <!-- <url type="website">http://wiki.ros.org/rover_ik</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
@@ -40,10 +40,12 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <run_depend>joy</run_depend>
-  <build_depend>sensor_msgs</build_depend>
+  <build_depend>trac_ik_lib</build_depend>
+  <run_depend>trac_ik_lib</run_depend>
   <build_depend>pluginlib</build_depend>
-
+  <run_depend>pluginlib</run_depend>
+  <build_depend>control_toolbox</build_depend>
+  <run_depend>control_toolbox</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
