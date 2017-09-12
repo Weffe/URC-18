@@ -96,9 +96,9 @@ find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib plugi
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES rover_ik
-#  CATKIN_DEPENDS other_catkin_pkg
+  INCLUDE_DIRS include
+  LIBRARIES rover_ik
+  CATKIN_DEPENDS trac_ik_lib control_toolbox pluginlib
 #  DEPENDS system_lib
 )
 
@@ -108,8 +108,8 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include)
-include_directories(${CATKIN_INCLUDE_DIRS})
+##include_directories(include)
+include_directories(${catkin_INCLUDE_DIRS})
 
 file(GLOB_RECURSE LIB_SRC include/rover_ik/*.h src/*.cpp src/*.h)
 

@@ -5,13 +5,17 @@
 #ifndef ROVER_IK_JOINTPOSITIONCONTROL_H
 #define ROVER_IK_JOINTPOSITIONCONTROL_H
 
-#include
+#include <control_toolbox/pid.h>
 
 namespace rover_ik {
 
     class JointPositionControl {
 
-        std::vector<control_toolbox::PID>
+        std::vector<control_toolbox::Pid> pidLoops;
+
+        JointPositionControl(std::vector<std::string> names, ros::NodeHandle nh_);
+
+        void updateSetpoints(std::vector<double> chainValues);
 
     };
 
