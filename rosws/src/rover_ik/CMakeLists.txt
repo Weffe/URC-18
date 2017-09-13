@@ -4,7 +4,7 @@ project(rover_ik)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib pluginlib)
+find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib pluginlib hardware_interface controller_interface realtime_tools)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -98,7 +98,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib plugi
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES rover_ik
-  CATKIN_DEPENDS trac_ik_lib control_toolbox pluginlib
+#  CATKIN_DEPENDS trac_ik_lib control_toolbox pluginlib
 #  DEPENDS system_lib
 )
 
@@ -108,7 +108,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-##include_directories(include)
+include_directories(include)
 include_directories(${catkin_INCLUDE_DIRS})
 
 file(GLOB_RECURSE LIB_SRC include/rover_ik/*.h src/*.cpp src/*.h)
