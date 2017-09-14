@@ -14,7 +14,7 @@ namespace rover_ik {
 
     public:
         JointPositionControl(std::vector<std::string> names, ros::NodeHandle nh_,
-                             hardware_interface::PositionJointInterface *hw);
+                             hardware_interface::EffortJointInterface *hw);
         void updateSetpoints(std::vector<double> chainValues);
         void update(ros::Duration duration);
 
@@ -22,10 +22,10 @@ namespace rover_ik {
 
     private:
 
-        ros::Time                                           timeStamp;
         std::vector<control_toolbox::Pid>                   pidLoops;
-        std::vector<std::string>                            jointNames;
         std::vector<hardware_interface::JointHandle>        jointHandles;
+        realtime_tools::RealtimeBuffer<std::vector<double>> setPoints;
+        std::vector<ros::NodeHandle>                        nodeHandles;
 
     };
 
