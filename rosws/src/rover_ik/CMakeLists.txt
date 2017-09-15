@@ -4,7 +4,7 @@ project(rover_ik)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib pluginlib hardware_interface controller_interface realtime_tools kdl_conversions)
+find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib pluginlib hardware_interface controller_interface realtime_tools kdl_conversions geometry_msgs message_generation)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -47,11 +47,10 @@ find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib plugi
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  RequestPosition.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -61,10 +60,11 @@ find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib plugi
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+  geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -98,7 +98,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp control_toolbox trac_ik_lib plugi
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES rover_ik
-#  CATKIN_DEPENDS trac_ik_lib control_toolbox pluginlib
+  CATKIN_DEPENDS message_runtime geometry_msgs
 #  DEPENDS system_lib
 )
 

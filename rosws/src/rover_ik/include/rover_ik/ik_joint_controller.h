@@ -17,6 +17,7 @@
 #include <ros/ros.h>
 #include <pluginlib/class_list_macros.h>
 #include <kdl/chainiksolver.hpp>
+#include <rover_ik/RequestPosition.h>
 
 namespace rover_ik {
 
@@ -27,6 +28,7 @@ namespace rover_ik {
         }
         ~IKJointController() {
             sub.shutdown();
+            serv.shutdown();
             delete solver;
         };
 
@@ -58,11 +60,20 @@ namespace rover_ik {
             ctrls->updateSetpoints(data);
         }
 
-        void
+        bool reqCB(rover_ik::RequestPositionRequest &req, rover_ik::RequestPositionResponse &res) {
+            KDL::Frame frameIn;
+            retrievePositions();
+            solver2->JntToCart(this->seed, frameIn);
+            geometry_msgs::Pose poseOut;
+            tf::poseKDLToMsg(frameIn, poseOut);
+            res.current = poseOut;
+            return true;
+        }
 
     private:
 
         ros::Subscriber sub;
+        ros::ServiceServer serv;
 
         void retrievePositions() {
             std::vector<double> d = ctrls->getPositions();

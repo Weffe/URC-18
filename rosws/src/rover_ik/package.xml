@@ -56,6 +56,10 @@
   <run_depend>orocos_kdl</run_depend>
   <build_depend>kdl_conversions</build_depend>
   <run_depend>kdl_conversions</run_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

@@ -45,6 +45,7 @@ bool rover_ik::IKJointController::init(hardware_interface::EffortJointInterface 
 
         ROS_INFO_STREAM("X " << origin.p.data[0] << " Y " << origin.p.data[1] << " Z " << origin.p.data[2]);
 
+    serv = nh_.advertiseService("request_position", &IKJointController::reqCB, this);
 
     return true;
 }
