@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from rover_ik.srv import RequestPositionRequest, RequestPositionResponse, RequestPosition
+from rover _ik.srv import RequestPositionRequest, RequestPositionResponse, RequestPosition
 from sensor_msgs.msg import Joy
 import geometry_msgs.msg
 
@@ -11,6 +11,7 @@ serv = rospy.ServiceProxy("/arm_ik_controller/request_position", RequestPosition
 velocity = [
     0, 0, 0
 ]
+
 
 def joyCB(dat):
     '''
@@ -23,6 +24,7 @@ def joyCB(dat):
     global velocity
     velocity[0] = dat.axes[1] / 4.0
     velocity[2] = dat.axes[5] / 20.0
+    velocity[1] = dat.axes[0] / 4.0
 
 sub = rospy.Subscriber("/joy", Joy, joyCB, queue_size=10)
 pub = rospy.Publisher("/arm_ik_controller/target", geometry_msgs.msg.Pose, queue_size=10)
@@ -31,7 +33,7 @@ rate = rospy.Rate(15)
 t = rospy.Time.now()
 
 position = [0, 0, 0]
-rpy      = [0, 0, 0, 0]
+rpy = [0, 0, 0, 0]
 
 pose = serv(RequestPositionRequest()).current  # type: geometry_msgs.msg.Pose
 position = [pose.position.x, pose.position.y, pose.position.z]
@@ -52,3 +54,4 @@ while not rospy.is_shutdown():
     p.position.x, p.position.y, p.position.z = position
     p.orientation.x, p.orientation.y, p.orientation.z, p.orientation.w = rpy
     pub.publish(p)
+    t = t2
