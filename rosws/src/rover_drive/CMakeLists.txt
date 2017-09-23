@@ -98,8 +98,8 @@ find_package(catkin REQUIRED COMPONENTS simpli2c roscpp std_msgs hardware_interf
 catkin_package(
    INCLUDE_DIRS include
    LIBRARIES rover_drive rover_drive_hw
-   CATKIN_DEPENDS simpli2c
-#  DEPENDS system_lib
+#  INCLUDE_DIRS include
+#  LIBRARIES rover_drive
 )
 
 ###########
@@ -110,7 +110,6 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(${catkin_INCLUDE_DIRS})
-include_directories(include)
 set(CMAKE_CXX_STANDARD 14)
 
 ## Declare a C++ library
@@ -119,6 +118,7 @@ add_library(rover_drive
 )
 
 add_library(rover_drive_hw src/drive_hw/ard_device.cpp src/drive_hw/hw_impl.cpp)
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -138,6 +138,7 @@ target_link_libraries(rover_drive
 target_link_libraries(rover_drive_hw
         ${catkin_LIBRARIES}
 )
+
 
 #############
 ## Install ##
