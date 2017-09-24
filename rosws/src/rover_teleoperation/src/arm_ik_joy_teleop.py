@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from rover _ik.srv import RequestPositionRequest, RequestPositionResponse, RequestPosition
+from rover_ik.srv import RequestPositionRequest, RequestPositionResponse, RequestPosition
 from sensor_msgs.msg import Joy
 import geometry_msgs.msg
 
