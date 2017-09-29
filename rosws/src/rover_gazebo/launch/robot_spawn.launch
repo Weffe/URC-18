@@ -4,5 +4,5 @@
         <arg name="use_fake" value="true" />
     </include>
 
-    <node pkg="gazebo_ros" name="spawn_rover_model" type="spawn_model" args="-urdf -z 40 -param robot_description -model rover" />
+    <node pkg="gazebo_ros" name="spawn_rover_model" type="spawn_model" args="-urdf -z 10 -param robot_description -model rover" />
 </launch>
