@@ -2,5 +2,6 @@
     <include file="$(find rover_gazebo)/launch/robot_spawn.launch" />
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="world/mdrs.world" />
+        <arg name="physics" value="dart" />
     </include>
 </launch>

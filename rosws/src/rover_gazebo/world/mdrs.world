@@ -12,7 +12,7 @@
                         <heightmap>
                             <uri>file://media/height/heights.dem</uri>
                             <size>400 400 42</size>
-                            <pos>0 0 0</pos>
+                            <pos>0 0 -7</pos>
                         </heightmap>
                     </geometry>
                 </collision>
@@ -31,12 +31,12 @@
                                 <size>3</size>
                             </texture>
                             <blend>
-                                <min_height>6.5</min_height>
+                                <min_height>10</min_height>
                                 <fade_dist>3</fade_dist>
                             </blend>
                             <uri>file://media/height/heights.dem</uri>
                             <size>400 400 42</size>
-                            <pos>0 0 0</pos>
+                            <pos>0 0 -7</pos>
                         </heightmap>
                     </geometry>
                 </visual>
